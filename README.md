@@ -1,3 +1,5 @@
+# Name = Evan Honggo Widjojo, PID = A18546537
+
 1. ## Where would you fit your automated tests in your Recipe project development pipeline?
 
 Within a GitHub Action that runs whenever code is pushed. Because it ensures that every change pushed to the repository is automatically tested. This gives immediate feedback, catches bugs early, and make sure consistent quality throughout the development process. It also supports collaboration by enforcing quality checks on pull requests, avoiding breaking changes.
