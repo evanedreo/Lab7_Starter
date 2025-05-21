@@ -1,16 +1,16 @@
-describe("Basic user flow for Website", () => {
+describe('Basic user flow for Website', () => {
   // First, visit the lab 7 website
   beforeAll(async () => {
-    await page.goto("https://cse110-sp25.github.io/CSE110-Shop/");
+    await page.goto('https://cse110-sp25.github.io/CSE110-Shop/');
   });
 
   // Each it() call is a separate test
   // Here, we check to make sure that all 20 <product-item> elements have loaded
-  it("Initial Home Page - Check for 20 product items", async () => {
-    console.log("Checking for 20 product items...");
+  it('Initial Home Page - Check for 20 product items', async () => {
+    console.log('Checking for 20 product items...');
 
     // Query select all of the <product-item> elements and return the length of that array
-    const numProducts = await page.$$eval("product-item", (prodItems) => {
+    const numProducts = await page.$$eval('product-item', (prodItems) => {
       return prodItems.length;
     });
 
@@ -21,9 +21,9 @@ describe("Basic user flow for Website", () => {
   // Check to make sure that all 20 <product-item> elements have data in them
   // We use .skip() here because this test has a TODO that has not been completed yet.
   // Make sure to remove the .skip after you finish the TODO.
-  it("Make sure <product-item> elements are populated", async () => {
+  it('Make sure <product-item> elements are populated', async () => {
     console.log(
-      "Checking to make sure <product-item> elements are populated..."
+      'Checking to make sure <product-item> elements are populated...'
     );
 
     // ***** Wait until every product has title, price AND image *****
@@ -67,7 +67,7 @@ describe("Basic user flow for Website", () => {
       it checks every <product-item> it found
     * Remove the .skip from this it once you are finished writing this test.
     */
-  }, 15000); // **** NEW: lengthened timeout just in case
+  }, 15000); 
 
   // Check to make sure that when you click "Add to Cart" on the first <product-item> that
   // the button swaps to "Remove from Cart"
@@ -106,8 +106,8 @@ describe("Basic user flow for Website", () => {
 
   // Check to make sure that after clicking "Add to Cart" on every <product-item> that the Cart
   // number in the top right has been correctly updated
-  it("Checking number of items in cart on screen", async () => {
-    console.log("Checking number of items in cart on screen...");
+  it('Checking number of items in cart on screen', async () => {
+    console.log('Checking number of items in cart on screen...');
 
     /**
      **** TODO - STEP 3 **** 
@@ -119,7 +119,6 @@ describe("Basic user flow for Website", () => {
 
     const prodItems = await page.$$("product-item");
 
-    // **** NEW: only click buttons that still say "Add to Cart" ****
     for (const prodItem of prodItems) {
       const shadowRootHandle = await prodItem.getProperty("shadowRoot");
       const buttonHandle = await shadowRootHandle.$("button");
@@ -131,18 +130,17 @@ describe("Basic user flow for Website", () => {
       }
     }
 
-    // **** NEW: wait until cart-count reads 20 ****
     await page.waitForFunction(
       () => document.querySelector("#cart-count").innerText === "20"
     );
 
     const cartCount = await page.$eval("#cart-count", (el) => el.innerText);
     expect(cartCount).toBe("20");
-  }, 20000); // **** NEW: more generous timeout
+  }, 20000); 
 
   // Check to make sure that after you reload the page it remembers all of the items in your cart
-  it("Checking number of items in cart on screen after reload", async () => {
-    console.log("Checking number of items in cart on screen after reload...");
+  it('Checking number of items in cart on screen after reload', async () => {
+    console.log('Checking number of items in cart on screen after reload...');
 
     /**
      **** TODO - STEP 4 **** 
@@ -153,7 +151,7 @@ describe("Basic user flow for Website", () => {
      */
 
     // Reload the page
-    await page.reload({ waitUntil: "networkidle0" }); // **** NEW: wait for network idle
+    await page.reload({ waitUntil: "networkidle0" }); 
 
     // Verify every button says "Remove from Cart"
     let allButtonsCorrect = true;
@@ -179,7 +177,7 @@ describe("Basic user flow for Website", () => {
   }, 10000);
 
   // Check to make sure that the cart in localStorage is what you expect
-  it("Checking the localStorage to make sure cart is correct", async () => {
+  it('Checking the localStorage to make sure cart is correct', async () => {
     /**
      **** TODO - STEP 5 **** 
      * At this point the item 'cart' in localStorage should be 
@@ -194,8 +192,8 @@ describe("Basic user flow for Website", () => {
 
   // Checking to make sure that if you remove all of the items from the cart that the cart
   // number in the top right of the screen is 0
-  it("Checking number of items in cart on screen after removing from cart", async () => {
-    console.log("Checking number of items in cart on screen...");
+  it('Checking number of items in cart on screen after removing from cart', async () => {
+    console.log('Checking number of items in cart on screen...');
 
     /**
      **** TODO - STEP 6 ****
@@ -217,7 +215,7 @@ describe("Basic user flow for Website", () => {
       }
     }
 
-    // **** NEW: wait until cart-count is 0 ****
+
     await page.waitForFunction(
       () => document.querySelector("#cart-count").innerText === "0"
     );
@@ -228,8 +226,8 @@ describe("Basic user flow for Website", () => {
 
   // Checking to make sure that it remembers us removing everything from the cart
   // after we refresh the page
-  it("Checking number of items in cart on screen after reload", async () => {
-    console.log("Checking number of items in cart on screen after reload...");
+  it('Checking number of items in cart on screen after reload', async () => {
+    console.log('Checking number of items in cart on screen after reload...');
 
     /**
      **** TODO - STEP 7 **** 
@@ -240,7 +238,7 @@ describe("Basic user flow for Website", () => {
      */
 
     // Reload the page
-    await page.reload({ waitUntil: "networkidle0" }); // **** NEW
+    await page.reload({ waitUntil: "networkidle0" });
 
     // Verify every button says "Add to Cart"
     let allButtonsCorrect = true;
@@ -267,8 +265,8 @@ describe("Basic user flow for Website", () => {
 
   // Checking to make sure that localStorage for the cart is as we'd expect for the
   // cart being empty
-  it("Checking the localStorage to make sure cart is correct", async () => {
-    console.log("Checking the localStorage...");
+  it('Checking the localStorage to make sure cart is correct', async () => {
+    console.log('Checking the localStorage...');
 
     /**
      **** TODO - STEP 8 ****
